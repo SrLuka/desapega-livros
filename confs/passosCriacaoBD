@@ -1,0 +1,28 @@
+CRIANDO O BANCO DE DADOS Da lIVRARIA
+
+1. Subir container oracle gvenzl/oracle-xe
+
+	docker run -d \
+	--name livraria-xe \
+	-p 1521:1521 -p 5500:5500 \
+	-e ORACLE_PASSWORD=B4nco#5 \
+	gvenzl/oracle-xe
+
+2. Copiar script de criação do banco de dados para o container 
+
+	docker cp init.sql livraria-xe:/opt/oracle/init.sql
+
+3. Entrar no bash do container
+	
+	docker exec -it livraria-xe bash
+	
+4. Acessar sqlplus
+
+	sqlplus system/B4nco#5@//localhost:1521/XEPDB1
+	
+5. Executar o script 
+
+	 @/opt/oracle/init.sql
+	 
+!!! Posso criar uma nova imagem fazendo esses processos no Dockerfile para facilitar
+!!! Tenho que pesquisar como fazer uma cópia de um banco de dados oracle dentro de um container, guardá-la no host e depois subir ela de novo para o container
